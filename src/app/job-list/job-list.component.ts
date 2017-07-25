@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JobService } from '../services/job.service';
 
 @Component({
   selector: 'ticme-job-list',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobListComponent implements OnInit {
 
-  constructor() { }
+  jobs = [];
+  error = '';
 
-  ngOnInit() {
+  constructor(private jobService: JobService ) { }
+
+  /**
+   * Init 
+   */
+  ngOnInit() {    
+    this.jobService.getjobs().subscribe(
+      data => this.jobs = data,
+      error => {
+        console.error(error);
+        this.error = error;
+      }
+    )
   }
 
 }
