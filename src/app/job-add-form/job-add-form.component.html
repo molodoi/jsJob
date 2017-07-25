@@ -1,0 +1,86 @@
+<div class="row">
+  <form [formGroup]="addJobForm" (ngSubmit)="createJob(addJobForm.value)">
+    <div class="form-group col-sm-6">
+      <label for="title">Titre</label>
+      <input type="text" name="title" class="form-control" placeholder="titre de votre annonce" formControlName="title">
+              <!-- Associer le champ title de notre model à l'aide de formControlName -->
+      <label for="company" class="mtop12">Entreprise</label>
+      <input type="text" name="company" class="form-control" placeholder="nom de votre entreprise" formControlName="company">  
+              <!-- Associer le champ company de notre model à l'aide de formControlName -->            
+      <label for="city" class="mtop12">Ville</label>
+      <input type="text" name="city" class="form-control" placeholder="ville du poste proposé" formControlName="city"> 
+              <!-- Associer le champ city de notre model à l'aide de formControlName -->   
+      <label for="zipcode" class="mtop12">Code postal</label>
+      <input type="text" name="zipcode" class="form-control" placeholder="code postal" formControlName="zipcode"> 
+              <!-- Associer le champ zipcode de notre model à l'aide de formControlName -->                    
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label for="description">Description</label><br />
+      <textarea name="description" cols="30" rows="12" formControlName="description" class="form-control"></textarea>
+      <!-- Associer le champ description de notre model à l'aide de formControlName -->   
+    </div>
+
+    <div class="form-group col-sm-12">
+      <label for="contract">Contrat</label>
+      <select name="contract" formControlName="contract" class="form-control">
+        <option *ngFor="let ct of contractTypes" [value]="ct.value">{{ct.name}}</option>
+      </select>
+              
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label for="salary">Salaire</label>                   
+      <input type="text" name="salary" class="form-control small-text" placeholder="salaire" formControlName="salary">                  
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label for="currency">Devise</label> 
+      <select name="currency" formControlName="currency" class="form-control currency">
+        <option *ngFor="let curr of currencies" [value]="curr.value">{{curr.name}}</option>  
+      </select> 
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label for="experience">Expérience</label>    
+      <select name="experience" formControlName="experience" class="form-control">
+        <option *ngFor="let exp of experience" [value]="exp.value">{{exp.name}}</option>
+      </select>      
+                  
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label for="status">Statut</label>          
+      <select name="status" formControlName="status" class="form-control">
+        <option *ngFor="let status of statuses" [value]="status.value">{{status.name}}</option>
+      </select> 
+    </div>
+
+
+    <div class="form-group col-sm-6">
+      <label for="field">Secteur</label>    
+      <input type="text" name="field" placeholder="secteur d'activité" formControlName="field" class="form-control">
+    </div>  
+
+    <div class="form-group col-sm-6">
+      <label for="field">Date de démarrage</label>    
+      <input type="date" name="startdate" formControlName="startdate" class="form-control">
+    </div>  
+
+    <div class="form-group col-sm-12">
+      <label for="area">Déplacements</label><br />
+      <small>Sélectionnez ci-dessous votre mobilité niveau déplacements</small>
+      <div class="funkyradio">      
+        <div *ngFor="let area of areas" class="funkyradio-default">         
+            <input type="radio" [id]='"btn-" + area.value' name="area" [value]="area.value" formControlName="area"> 
+            <label [for]='"btn-" + area.value'>{{area.name}}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-12">
+      <button type="submit" class="btn btn-lg btn-block btn-primary">Créer l'annonce</button>
+    </div>
+
+  </form>
+</div>

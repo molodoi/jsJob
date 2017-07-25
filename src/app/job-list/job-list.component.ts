@@ -16,7 +16,10 @@ export class JobListComponent implements OnInit {
   /**
    * Init 
    */
-  ngOnInit() {    
+  ngOnInit() { 
+    /**
+     * Hydrater la liste des jobs
+     */   
     this.jobService.getjobs().subscribe(
       data => this.jobs = data,
       error => {
@@ -24,6 +27,14 @@ export class JobListComponent implements OnInit {
         this.error = error;
       }
     )
+    /**
+     * Ajouter notre job la liste des jobs au POST du formulaire
+     */
+    this.jobService.jobsSubject.subscribe(
+      data => {
+        this.jobs = [data, ...this.jobs];
+      }
+    );
   }
 
 }
