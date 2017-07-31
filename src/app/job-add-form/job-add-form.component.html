@@ -3,7 +3,8 @@
     <div class="form-group col-sm-6">
       <label for="title">Titre</label>
       <input type="text" name="title" class="form-control" placeholder="titre de votre annonce" formControlName="title">
-              <!-- Associer le champ title de notre model à l'aide de formControlName -->
+      <div *ngIf="addJobForm.get('title').dirty && addJobForm.get('title').hasError('required')">Titre is required</div>        
+      <!-- Associer le champ title de notre model à l'aide de formControlName -->
       <label for="company" class="mtop12">Entreprise</label>
       <input type="text" name="company" class="form-control" placeholder="nom de votre entreprise" formControlName="company">  
               <!-- Associer le champ company de notre model à l'aide de formControlName -->            
@@ -79,7 +80,7 @@
     </div>
 
     <div class="form-group col-sm-12">
-      <button type="submit" class="btn btn-lg btn-block btn-primary">Créer l'annonce</button>
+      <button type="submit" class="btn btn-lg btn-block btn-primary" [disabled]="!addJobForm.valid">Créer l'annonce</button>
     </div>
 
   </form>

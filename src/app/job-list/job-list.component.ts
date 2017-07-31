@@ -20,7 +20,7 @@ export class JobListComponent implements OnInit {
     /**
      * Hydrater la liste des jobs
      */   
-    this.jobService.getjobs().subscribe(
+    this.jobService.getJobs().subscribe(
       data => this.jobs = data,
       error => {
         console.error(error);

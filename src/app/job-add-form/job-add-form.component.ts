@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { JobService } from '../services/job.service';
 
@@ -54,7 +54,7 @@ export class JobAddFormComponent implements OnInit {
      */
     this.addJobForm = this.FormBuilder.group({
       id: -1,
-      title: '',
+      title: this.FormBuilder.control('', Validators.required),
       company: '',
       city: '',
       zipcode: 35,
@@ -75,7 +75,8 @@ export class JobAddFormComponent implements OnInit {
 
   createJob(jobData){
     //this.jobService.addJob(this.addJobForm.value);
-    this.jobService.addJob(jobData);
+    this.jobService.addJob(this.addJobForm.value).subscribe();
+    this.addJobForm.reset();
   }
 
 }
