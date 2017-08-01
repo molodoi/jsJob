@@ -1,7 +1,7 @@
 <div class="row">
   <form [formGroup]="addJobForm" (ngSubmit)="createJob(addJobForm.value)">
     <div class="form-group col-sm-6">
-      <label for="title">Titre</label>
+      <label for="title">Titre</label> 
       <input type="text" name="title" class="form-control" placeholder="titre de votre annonce" formControlName="title">
       <div *ngIf="addJobForm.get('title').dirty && addJobForm.get('title').hasError('required')">Titre is required</div>        
       <!-- Associer le champ title de notre model à l'aide de formControlName -->

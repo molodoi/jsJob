@@ -21,6 +21,11 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 import { AboutComponent } from './about/about.component';
 import { ToShortDatePipe } from './pipes/to-short-date.pipe';
 import { ToMoneySymbolPipe } from './pipes/to-money-symbol.pipe';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { AuthService } from './services/auth.service';
+import { RegisterComponent } from './register/register.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 /**
  * Les routes de l'appli
@@ -30,7 +35,10 @@ const routes = [
   { path: 'jobs/add', component: JobAddFormComponent},
   { path: 'jobs/:id', component: JobDetailsComponent},
   { path: 'jobs', component: JobListComponent},
-  { path: 'about', component: AboutComponent}
+  { path: 'about', component: AboutComponent},
+  { path: 'login', component: AuthenticationComponent},
+  { path: 'register', component: RegisterComponent},
+  { path: 'profile', component: UserProfileComponent}
 ]
 
 @NgModule({
@@ -44,7 +52,11 @@ const routes = [
     JobDetailsComponent,
     AboutComponent,
     ToShortDatePipe,
-    ToMoneySymbolPipe
+    ToMoneySymbolPipe,
+    SearchResultComponent,
+    AuthenticationComponent,
+    RegisterComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +65,7 @@ const routes = [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [JobService],
+  providers: [JobService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

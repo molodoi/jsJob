@@ -1,0 +1,23 @@
+<div *ngIf="!isAuthenticated">
+  <h3>Connexion</h3>
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+    <div class="form-group">
+      <input type="text" class="form-control input-lg login-input" ngModel name="email" placeholder="email " required>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control input-lg login-input" ngModel name="password" placeholder="mot de passe" required>
+    </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="loginForm.invalid">se connecter</button>
+  </form>
+</div>
+
+<div *ngIf="isAuthenticated">
+  {{welcomeMessage}}
+  <pre>
+    {{ jbbData | json }} 
+  </pre>
+</div>
+
+<div *ngIf="isAuthenticated">
+  <a href="#" routerLink="/logout"></a>
+</div>
