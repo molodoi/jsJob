@@ -17,6 +17,7 @@ export class AuthService {
   }
 
   userIsLoggedIn() {
+    // !! cast une valeur en booleen
     return !!localStorage.getItem(this.TOKEN_NAME);
   }
 
@@ -31,10 +32,18 @@ export class AuthService {
                     .map(res => res.json());
   }
 
+  /**
+   * Decode le token
+   * @param token 
+   */
   decodeToken(token) {
     return jwtDecode(token);
   }
 
+  /**
+   * Créer le header Authorization : Bearer
+   * @param token 
+   */
   addAuthorizationHeader(token) {
     const authorizationHeader = new Headers({
       'Authorization': 'Bearer ' + token

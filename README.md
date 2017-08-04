@@ -1,4 +1,39 @@
-# Jsjob
+Jsjob
+========================
+
+Technologies & versions:
+- Angular 4.*
+- Nodejs
+- Jwt
+        
+Content
+========================
+- Create a little JobBoard App with Angular 4, Node & JWT
+
+Learn how to:
+Frontend:
+- Angular cli
+- Di
+- Components
+- Services
+- Pipes
+- Http
+- RxJs Observable
+- Form Template and by Code (ReactiveFormsModule), Validation
+- Routing
+- Views
+- Components @input, @Output, EventEmiter
+- JWT
+Backend:
+- Nodejs, Express, JWT
+
+Ressources
+========================
+https://www.cheatography.com/wakers01/cheat-sheets/angular-cli/pdf_bw/
+
+https://cli.angular.io/reference.pdf
+
+========================
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.3.
 Angular 4, Node.js et JWT
@@ -29,6 +64,5 @@ Before running the tests make sure you are serving the app via `ng serve`.
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 "# jsJob" 
 
-https://www.cheatography.com/wakers01/cheat-sheets/angular-cli/pdf_bw/
-https://cli.angular.io/reference.pdf
+
 

@@ -1,40 +1,105 @@
-<div *ngIf="decodedToken">
-  <strong> Contenu du token</strong>
-  <pre>
-    {{ decodedToken | json }}
-  </pre>
-</div>
-
 <div *ngIf="!decodedToken">
   Aucune donnée trouvée.
 </div>
 
-<div *ngIf="isAdmin">
-  <h2>Profil de {{decodedToken.nickname}}</h2>
-
-  <h3>{{adsTitle}}</h3>  
-  <div *ngFor="let job of jobs">
-    <strong>{{job.title}}</strong> 
-    - publiée il y a {{job.publishdate}} 
-    - mise à jour il y a {{ job.lastupdate}}
-    <div>
-      {{job.description}}
+<div class="row" *ngIf="!isAdmin">
+		<div class="col-lg-3 col-sm-6">
+            <div class="card hovercard">
+                <div class="cardheader">
+                </div>
+                <div class="avatar">
+                    <img alt="" src="http://lorempixel.com/100/100/animals/9/">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        {{decodedToken.nickname | capitalize}}
+                    </div>
+                    <div class="desc">Passionate designer</div>
+                    <div class="desc">Curious developer</div>
+                    <div class="desc">Tech singer & hiker</div>
+                </div>
+                <div class="bottom">
+                    <a class="btn btn-primary btn-twitter btn-sm" href="#">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" rel="publisher"
+                       href="#">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                    <a class="btn btn-primary btn-sm" rel="publisher"
+                       href="#">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn btn-warning btn-twitter btn-sm" href="#">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
     </div>
-    <hr>
-  </div>
+    <div class="col-lg-9 col-sm-6">
+      <h3>{{adsTitle}}</h3>       
+      <hr> 
+      <div *ngFor="let job of jobs">
+        <a href="#" [routerLink]="['/jobs', job.id]"><strong>{{job.title}}</strong> </a>
+        - publiée il y a {{job.publishdate | daysAgo}} 
+          - mise à jour il y a {{ job.lastupdate | daysAgo}}
+        <div>
+          {{job.description | truncate}}
+        </div>
+        <hr>
+      </div>
+    </div>
 </div>
 
-<div *ngIf="!isAdmin">
-  <h2>Profil de {{decodedToken.nickname}}</h2>
 
-  <h3>{{adsTitle}}</h3>
-  <div *ngFor="let job of jobs">
-    <strong>{{job.title}}</strong> 
-    - publiée il y a {{job.publishdate}} 
-    - mise à jour il y a {{ job.lastupdate}}
-    <div>
-      {{job.description}}
+<div class="row" *ngIf="isAdmin">
+		<div class="col-lg-3 col-sm-6">
+            <div class="card hovercard">
+                <div class="cardheader">
+                </div>
+                <div class="avatar">
+                    <img alt="" src="http://lorempixel.com/100/100/animals/9/">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        {{decodedToken.nickname | capitalize}}
+                    </div>
+                    <div class="desc">Passionate designer</div>
+                    <div class="desc">Curious developer</div>
+                    <div class="desc">Tech singer & hiker</div>
+                </div>
+                <div class="bottom">
+                    <a class="btn btn-primary btn-twitter btn-sm" href="#">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" rel="publisher"
+                       href="#">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                    <a class="btn btn-primary btn-sm" rel="publisher"
+                       href="#">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn btn-warning btn-twitter btn-sm" href="#">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
     </div>
-    <hr>
-  </div>
+    <div class="col-lg-9 col-sm-6">
+      <h3>{{adsTitle}}</h3>       
+      <hr> 
+      <div *ngFor="let job of jobs">
+        <strong>{{job.title}}</strong> 
+        - publiée il y a {{job.publishdate | daysAgo}} 
+          - mise à jour il y a {{ job.lastupdate | daysAgo}}
+        <div>
+          {{job.description | truncate}}
+        </div>
+        <hr>
+      </div>
+    </div>
 </div>
+
+
+
