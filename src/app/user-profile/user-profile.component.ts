@@ -21,7 +21,6 @@ export class UserProfileComponent implements OnInit {
     if(this.authService.userIsLoggedIn()) {
       const jbbToken = JSON.parse(localStorage.getItem('jbb-token'));
       this.decodedToken = this.authService.decodeToken(jbbToken.token);
-      console.log(this.decodedToken);
       if(this.decodedToken && this.decodedToken.role === 'admin') {
         this.isAdmin = true;
       }
@@ -52,7 +51,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   displayAds(jobs) {
-    console.log('jobs ', jobs);
     this.jobs = jobs;
     switch(this.jobs.length) {
       case 0:

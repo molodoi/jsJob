@@ -2,11 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { JobService } from '../services/job.service';
+import { AuthService } from '../services/auth.service';
+import { Http, Headers, Request } from '@angular/http';
+import { slideInOutAnimation } from '../animations/index';
+
 
 @Component({
   selector: 'ticme-job-add-form',
   templateUrl: './job-add-form.component.html',
-  styleUrls: ['./job-add-form.component.css']
+  styleUrls: ['./job-add-form.component.css'],
+ 
+    // make slide in/out animation available to this component
+    animations: [slideInOutAnimation],
+ 
+    // attach the slide in/out animation to the host (root) element of this component
+    host: { '[@slideInOutAnimation]': '' }
 })
 export class JobAddFormComponent implements OnInit {
 
@@ -46,7 +56,7 @@ export class JobAddFormComponent implements OnInit {
     {id: 4, name: 'déplacements internationaux', value: 'international'}
   ];
 
-  constructor(private FormBuilder: FormBuilder, private jobService: JobService) { }
+  constructor(private FormBuilder: FormBuilder, private jobService: JobService, private authService: AuthService) { }
 
   ngOnInit() {
     /**
@@ -70,13 +80,24 @@ export class JobAddFormComponent implements OnInit {
       publishdate: new Date(),
       lastupdate: new Date()
     });
-  }
 
+    this.checkUserIsLoggedin();
+  }
 
   createJob(jobData){
     //this.jobService.addJob(this.addJobForm.value);
-    this.jobService.addJob(this.addJobForm.value).subscribe();
+    const token = JSON.parse(localStorage.getItem('jbb-token')).token;
+    this.jobService.addJob(this.addJobForm.value, token).subscribe();
     this.addJobForm.reset();
+  }
+
+  checkUserIsLoggedin() {
+    /**
+     * On utilise notre service auth pour vérifier si l'utilisateur est loggué
+     */
+    if(this.authService.userIsLoggedIn()) {
+      this.userIsLoggedin = true;
+    }
   }
 
 }

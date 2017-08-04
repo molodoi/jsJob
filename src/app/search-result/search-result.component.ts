@@ -19,7 +19,6 @@ export class SearchResultComponent implements OnInit {
   }
 
   handleSearchResult(data) {
-    console.log('data ', data);
     this.jobs = data.jobs;
   }
 

@@ -27,7 +27,7 @@ app.use(bodyParser.json());
  */
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   // Continuer le traitement de notre requête
   next();
 });
@@ -43,6 +43,26 @@ app.use((req, res, next) => {
 const api = express.Router();
 
 const auth = express.Router();
+
+const checkUserToken = (req, res, next) => {
+  // check that the user sent a token in the request header
+  if(!req.header('authorization')) {
+    // no header, no need to go further
+    return res.status(401).json({ success: false, message: "Header d'authentification manquant"});
+  }
+
+  const authorizationHeaderParts = req.header('authorization').split(' ');
+  // parts are 'Bearer theToken'
+  let token = authorizationHeaderParts[1];
+  jwt.verify(token, secret, (err, decodedToken) => {
+    if(err) {
+      return res.status(401).json({ success: false, message: "Token non valide"});      
+    } else {
+      console.log('decodedToken ', decodedToken);
+      next();
+    }
+  });
+};
 
 auth.post('/login', (req, res) => {
   if(req.body) {
@@ -81,47 +101,18 @@ auth.post('/register', (req, res) => {
   }
 });
 
-// On renvoit 
+/**
+ * Get All Jobs
+ */
 api.get('/jobs', (req, res) => {
   res.json(getAllJobs());
 });
 
-api.get('/jobs/:email', (req, res) => {
-  // res.json({success: true, message: 'GET on jobs/:email works'});
-  const email = req.params.email;
-  const jobs = getAllJobs().filter(job => job.email === email);
-  res.json({ success: true, jobs: jobs});
-});
-
-const checkUserToken = (req, res, next) => {
-  // check that the user sent a token in the request header
-  if(!req.header('authorization')) {
-    // no header, no need to go further
-    return res.status(401).json({ success: false, message: "Header d'authentification manquant"});
-  }
-
-  const authorizationHeaderParts = req.header('authorization').split(' ');
-  // parts are 'Bearer theToken'
-  let token = authorizationHeaderParts[1];
-  jwt.verify(token, secret, (err, decodedToken) => {
-    if(err) {
-      return res.status(401).json({ success: false, message: "Token non valide"});      
-    } else {
-      console.log('decodedToken ', decodedToken);
-      next();
-    }
-  });
-};
-
-api.post('/jobs', checkUserToken, (req, res) => {
-  const job = req.body;
-  console.log('received job on POST to /jobs', job);
-  addedJobs = [job, ...addedJobs];
-  res.json(job);
-});
- 
+/**
+ * Get Job by id
+ */
 api.get('/jobs/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10); 
+  const id = parseInt(req.params.id, 10);
   const job = getAllJobs().filter(j => j.id === id);
   if(job.length === 1) {
     res.json({ success: true, job: job[0]});
@@ -130,6 +121,30 @@ api.get('/jobs/:id', (req, res) => {
   }
 });
 
+api.get('/jobs/email/:email', (req, res) => {
+  // res.json({success: true, message: 'GET on jobs/:email works'});
+  const email = req.params.email;
+  const jobs = getAllJobs().filter(job => job.email === email);
+  res.json({ success: true, jobs: jobs});
+});
+
+
+
+/**
+ * Form Post Job
+ */
+api.post('/jobs', checkUserToken, (req, res) => {
+  const job = req.body;
+  console.log('received job on POST to /jobs', job);
+  addedJobs = [job, ...addedJobs];
+  res.json(job);
+});
+
+
+
+/**
+ * Search
+ */
 api.get('/search/:term/:place?', (req, res) => {
   const term = req.params.term.toLowerCase().trim();
   let place = req.params.place;
